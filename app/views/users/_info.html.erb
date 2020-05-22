@@ -12,7 +12,7 @@
         <th>フォロー中</th>
         <th>
           <%= link_to followings_user_path(user) do %>
-            <%= user.followings.count %>人
+            <%= user.follower.count %>人
           <% end %>
         </th>
       </tr>
@@ -20,7 +20,7 @@
         <th>フォロワー</th>
         <th>          
           <%= link_to followers_user_path(user) do %>
-            <%= user.followers.count %>人
+            <%= user.followed.count %>人
           <% end %>
         </th>
       </tr>
@@ -36,7 +36,18 @@
         </tr>
       <% end %>
 </table>
+<div >
+ <% unless current_user == user %>
+            <% if current_user.following?(user) %>
+              <%= link_to 'フォローを外す', unfollow_path(user.id), method: :post, class: 'btn btn-danger btn-block'%>
+            <% else %>
+              <%= link_to 'フォローをする', follow_path(user.id), method: :post, class: 'btn btn-primary btn-block' %>
+            <% end %>
+          <% end %>
 
+
+</div>     
 <div class='row'>
   <%= link_to '',edit_user_path(user),class: "col-xs-12 btn btn-default glyphicon glyphicon-wrench edit_user_#{user.id}" %>
 </div>
+     

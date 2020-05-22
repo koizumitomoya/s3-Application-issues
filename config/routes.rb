@@ -3,11 +3,13 @@ Rails.application.routes.draw do
     sessions: "public/sessions",
     registrations: "public/registrations"
   }
-
+  post 'follow/:id' => 'relationships#follow',as: 'follow' #フォローする
+  post 'unfollow/:id' => 'relationships#unfollow', as: 'unfollow' #アンフォローする
   resources :users,only: [:show,:edit,:update,:index] do
     member do
       get 'followers'
       get 'followings'
+      
     end
     resource :relationships, only: [:create, :destroy]
   end
