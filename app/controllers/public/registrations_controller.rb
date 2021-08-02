@@ -10,9 +10,11 @@ class Public::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+   def create
+    super
+    #WelcomeMailerクラスのsend_when_signupメソッドを呼び、POSTから受け取ったuserのemailとnameを渡す
+    WelcomeMailer.send_when_signup(params[:user][:email],params[:user][:name]).deliver
+   end
 
   # GET /resource/edit
   # def edit
